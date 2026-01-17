@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Go Green Admin - Integrated Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Arial', sans-serif; background-color: #f8fafc; }
+        .admin-view { width: 100%; max-width: 480px; min-height: 100vh; margin: 0 auto; background: #ffffff; position: relative; border: 1px solid #e5e7eb; overflow-x: hidden; }
+        .bg-admin-green { background-color: #1b4332; }
+        .btn-menu { background: #ffffff; border: 1px solid #e2e8f0; transition: all 0.3s; }
+        .btn-menu:active { transform: scale(0.95); background-color: #f0fdf4; border-color: #2D6A4F; }
+        .hidden { display: none; }
+        .status-badge { padding: 2px 8px; border-radius: 9999px; font-size: 10px; font-weight: bold; text-transform: uppercase; }
+        .status-waiting { background-color: #fef3c7; color: #92400e; }
+        .status-active { background-color: #dcfce7; color: #166534; }
+        .status-nonactive { background-color: #fee2e2; color: #991b1b; }
+        .section-header { font-size: 11px; font-weight: bold; color: #1e3a8a; text-transform: uppercase; margin-bottom: 8px; border-bottom: 1px solid #f1f5f9; padding-bottom: 4px; }
+    </style>
+</head>
+<body>
+
+<div class="admin-view shadow-2xl">
+
+    <div id="screen-login" class="p-8 flex flex-col justify-center h-screen">
+        <div class="text-center mb-10">
+            <div class="w-20 h-20 bg-admin-green rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <span class="text-3xl">🔑</span>
+            </div>
+            <h1 class="text-2xl font-bold text-gray-800">Back Office Portal</h1>
+            <p class="text-sm text-gray-500">Go Green Danagung System</p>
+        </div>
+        <button onclick="showScreen('screen-launcher')" class="w-full py-4 bg-green-800 text-white rounded-xl font-bold shadow-lg">Login Admin</button>
+    </div>
+
+    <div id="screen-launcher" class="hidden">
+        <div class="p-6 bg-admin-green text-white pb-12 rounded-b-[30px]">
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <p class="text-xs opacity-70">Selamat Bekerja,</p>
+                    <h2 class="text-lg font-bold">Admin Operasional</h2>
+                </div>
+                <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">👤</div>
+            </div>
+            <p class="text-sm font-medium">Pilih Modul Manajemen :</p>
+        </div>
+
+        <div class="p-6 -mt-8 grid grid-cols-1 gap-4">
+            <div onclick="showScreen('screen-dashboard')" class="btn-menu p-5 rounded-2xl shadow-sm flex items-center cursor-pointer">
+                <div class="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center text-2xl mr-4">📝</div>
+                <div class="flex-1">
+                    <h3 class="font-bold text-gray-800 text-sm">Approval Aktivasi Akun</h3>
+                    <p class="text-[10px] text-gray-400">Verifikasi Nasabah, Pengepul, & Bank Sampah</p>
+                </div>
+                <span id="badge-count" class="bg-red-500 text-white text-[10px] px-2 py-1 rounded-full">3</span>
+            </div>
+
+            <div onclick="showScreen('screen-master-harga')" class="btn-menu p-5 rounded-2xl shadow-sm flex items-center cursor-pointer">
+                <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-2xl mr-4">💰</div>
+                <div class="flex-1">
+                    <h3 class="font-bold text-gray-800 text-sm">Master Harga Limbah</h3>
+                    <p class="text-[10px] text-gray-400">Update harga beli berdasarkan tipe plastik</p>
+                </div>
+                <span class="text-gray-300">›</span>
+            </div>
+        </div>
+        <button onclick="showScreen('screen-login')" class="absolute bottom-10 left-0 right-0 text-center text-xs text-red-500 font-bold underline">Logout dari System</button>
+    </div>
+
+    <div id="screen-dashboard" class="hidden">
+        <div class="p-4 flex items-center border-b sticky top-0 bg-white z-20">
+            <button onclick="showScreen('screen-launcher')" class="text-2xl mr-4">←</button>
+            <h1 class="font-bold text-gray-800 text-sm">Antrian Aktivasi</h1>
+        </div>
+        <div class="flex border-b text-center text-[10px] font-bold text-gray-400 bg-gray-50">
+            <button onclick="switchTab('nasabah')" id="tab-nasabah" class="flex-1 py-4 border-b-2 border-green-700 text-green-700">NASABAH</button>
+            <button onclick="switchTab('pengepul')" id="tab-pengepul" class="flex-1 py-4 border-b-2 border-transparent">PENGEPUL</button>
+            <button onclick="switchTab('banksampah')" id="tab-banksampah" class="flex-1 py-4 border-b-2 border-transparent">BANK SAMPAH</button>
+        </div>
+        <div id="list-items" class="p-4 space-y-3">
+            </div>
+    </div>
+
+    <div id="screen-detail" class="hidden pb-24">
+        <div class="p-4 flex items-center border-b bg-white sticky top-0 z-20">
+            <button onclick="showScreen('screen-dashboard')" class="text-2xl mr-4">←</button>
+            <h1 class="font-bold text-gray-800">Detail Verifikasi</h1>
+        </div>
+        <div class="p-5 space-y-6">
+            <div class="flex justify-between items-center bg-gray-50 p-3 rounded-lg border">
+                <span class="text-[10px] font-bold text-gray-500 uppercase">Status:</span>
+                <span id="detail-status-badge" class="status-badge">WAITING</span>
+            </div>
+            <div id="detail-content" class="space-y-6">
+                </div>
+        </div>
+        <div id="action-bar" class="fixed bottom-0 left-0 right-0 max-w-[480px] mx-auto p-4 bg-white border-t flex gap-2">
+            </div>
+    </div>
+
+    <div id="screen-master-harga" class="hidden">
+        <div class="p-4 flex items-center border-b sticky top-0 bg-white z-20">
+            <button onclick="showScreen('screen-launcher')" class="text-2xl mr-4">←</button>
+            <h1 class="font-bold text-gray-800 text-sm">Master Harga Limbah</h1>
+        </div>
+        <div class="p-4">
+            <div class="bg-blue-50 p-4 rounded-xl mb-6 flex items-start">
+                <span class="mr-3">ℹ️</span>
+                <p class="text-[10px] text-blue-700 leading-relaxed italic">
+                    Acuan harga setor untuk Bank Sampah & Pengepul.
+                </p>
+            </div>
+            <div class="space-y-3">
+                <div class="p-4 border rounded-xl flex items-center justify-between bg-white shadow-sm">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-3 text-lg">🥤</div>
+                        <div><p class="text-xs font-bold text-gray-800">PET (Botol Bening)</p><p class="text-[10px] text-green-600 font-bold">Rp 3.500 /kg</p></div>
+                    </div>
+                    <button class="text-[10px] font-bold text-blue-600 border border-blue-200 px-3 py-1 rounded-lg">Edit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Database Simulasi
+    const database = {
+        nasabah: [
+            { id: 101, name: "Budi Setiawan", cif: "CIF-00012345", hp: "08123456789", email: "budi@email.com", rek: "1020888882", status: "WAITING" }
+        ],
+        pengepul: [
+            { id: 201, name: "PT Pengepul Jaya", cif: "CIF-00099988", hp: "0855667788", alamat: "Jl. Industri No. 12", tipe: "Badan Usaha", pic: "Andi Saputra", status: "WAITING" }
+        ],
+        banksampah: [
+            { id: 301, name: "Bank Sampah Melati", cif: "CIF-00077722", hp: "0811000999", wilayah: "Tangerang", pic_ops: "Rina Sari", pic_keu: "Agus H.", koordinat: "-6.2, 106.8", status: "WAITING" }
+        ]
+    };
+
+    let currentTab = 'nasabah';
+
+    function showScreen(id) {
+        ['screen-login', 'screen-launcher', 'screen-dashboard', 'screen-detail', 'screen-master-harga'].forEach(s => {
+            document.getElementById(s).classList.add('hidden');
+        });
+        document.getElementById(id).classList.remove('hidden');
+        if(id === 'screen-dashboard') renderList();
+    }
+
+    function switchTab(tab) {
+        currentTab = tab;
+        ['nasabah', 'pengepul', 'banksampah'].forEach(t => {
+            const el = document.getElementById('tab-' + t);
+            el.className = `flex-1 py-4 border-b-2 text-[10px] font-bold ${t === tab ? 'border-green-700 text-green-700' : 'border-transparent text-gray-400'}`;
+        });
+        renderList();
+    }
+
+    function renderList() {
+        const container = document.getElementById('list-items');
+        container.innerHTML = '';
+        database[currentTab].forEach(item => {
+            const badgeClass = item.status === 'WAITING' ? 'status-waiting' : (item.status === 'ACTIVE' ? 'status-active' : 'status-nonactive');
+            container.innerHTML += `
+                <div onclick="showDetail('${currentTab}', ${item.id})" class="p-4 border rounded-xl flex justify-between items-center bg-white shadow-sm hover:border-green-300 cursor-pointer">
+                    <div><p class="text-xs font-bold text-gray-800">${item.name}</p><p class="text-[10px] text-gray-400">${item.cif}</p></div>
+                    <div class="flex items-center"><span class="status-badge ${badgeClass}">${item.status}</span><span class="ml-2 text-gray-300">›</span></div>
+                </div>`;
+        });
+    }
+
+    function showDetail(type, id) {
+        const data = database[type].find(i => i.id === id);
+        const content = document.getElementById('detail-content');
+        const badge = document.getElementById('detail-status-badge');
+        const actionBar = document.getElementById('action-bar');
+        
+        badge.innerText = data.status;
+        badge.className = 'status-badge ' + (data.status === 'WAITING' ? 'status-waiting' : (data.status === 'ACTIVE' ? 'status-active' : 'status-nonactive'));
+
+        let html = '';
+        if (type === 'nasabah') {
+            html = `<section><div class="section-header">🛡️ Identitas (Prefill)</div><p class="text-[10px] text-gray-400 font-bold uppercase">Nama / CIF</p><p class="text-sm font-medium mb-2">${data.name} / ${data.cif}</p><p class="text-[10px] text-gray-400 font-bold uppercase">Kontak</p><p class="text-sm font-medium">${data.hp} / ${data.email}</p></section>
+                    <section><div class="section-header">💳 Rekening Reward</div><p class="text-sm font-medium">${data.rek} (Tabungan) - ACTIVE</p></section>`;
+        } else if (type === 'pengepul') {
+            html = `<section><div class="section-header">🚚 Profil Pengepul</div><p class="text-[10px] text-gray-400 font-bold uppercase">Nama Usaha / Tipe</p><p class="text-sm font-medium mb-2">${data.name} (${data.tipe})</p><p class="text-[10px] text-gray-400 font-bold uppercase">Alamat</p><p class="text-sm font-medium">${data.alamat}</p></section>
+                    <section><div class="section-header">👤 PIC & CIF</div><p class="text-sm font-medium">${data.pic} / ${data.cif}</p></section>`;
+        } else {
+            html = `<section><div class="section-header">🏦 Profil Bank Sampah</div><p class="text-[10px] text-gray-400 font-bold uppercase">Nama Unit / Wilayah</p><p class="text-sm font-medium mb-2">${data.name} / ${data.wilayah}</p><p class="text-[10px] text-gray-400 font-bold uppercase">Koordinat</p><p class="text-sm font-medium">${data.koordinat}</p></section>
+                    <section><div class="section-header">👥 PIC</div><p class="text-sm font-medium">Ops: ${data.pic_ops} / Keu: ${data.pic_keu}</p></section>`;
+        }
+        content.innerHTML = html;
+
+        if (data.status === 'WAITING') {
+            actionBar.innerHTML = `<button onclick="updateStatus('${type}', ${id}, 'REJECT')" class="flex-1 py-4 bg-red-50 text-red-700 rounded-xl font-bold text-xs">Reject</button>
+                                   <button onclick="updateStatus('${type}', ${id}, 'ACTIVE')" class="flex-[2] py-4 bg-green-800 text-white rounded-xl font-bold shadow-lg text-xs uppercase">Approve & Aktifkan</button>`;
+        } else if (data.status === 'ACTIVE') {
+            actionBar.innerHTML = `<button onclick="updateStatus('${type}', ${id}, 'NON-ACTIVE')" class="w-full py-4 bg-red-600 text-white rounded-xl font-bold shadow-lg text-xs uppercase">Non-Aktifkan Akun</button>`;
+        } else {
+            actionBar.innerHTML = `<button onclick="updateStatus('${type}', ${id}, 'ACTIVE')" class="w-full py-4 bg-green-800 text-white rounded-xl font-bold text-xs uppercase">Aktifkan Kembali</button>`;
+        }
+
+        showScreen('screen-detail');
+    }
+
+    function updateStatus(type, id, newStatus) {
+        if(confirm(`Update status menjadi ${newStatus}?`)) {
+            const item = database[type].find(i => i.id === id);
+            item.status = newStatus;
+            alert(`Berhasil! Status ${item.name} diperbarui.`);
+            showScreen('screen-dashboard');
+        }
+    }
+</script>
+
+</body>
+</html>
