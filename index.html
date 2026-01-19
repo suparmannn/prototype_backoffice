@@ -6,18 +6,23 @@
     <title>Go Green Admin - Integrated Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: 'Arial', sans-serif; background-color: #f8fafc; }
+        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f8fafc; }
         .admin-view { width: 100%; max-width: 480px; min-height: 100vh; margin: 0 auto; background: #ffffff; position: relative; border: 1px solid #e5e7eb; overflow-x: hidden; }
         .bg-admin-green { background-color: #1b4332; }
-        .btn-menu { background: #ffffff; border: 1px solid #e2e8f0; transition: all 0.3s; }
-        .btn-menu:active { transform: scale(0.95); background-color: #f0fdf4; border-color: #2D6A4F; }
         .hidden { display: none; }
-        .status-badge { padding: 2px 8px; border-radius: 9999px; font-size: 10px; font-weight: bold; text-transform: uppercase; }
+        .status-badge { padding: 2px 10px; border-radius: 9999px; font-size: 9px; font-weight: 800; text-transform: uppercase; }
         .status-waiting { background-color: #fef3c7; color: #92400e; }
         .status-active { background-color: #dcfce7; color: #166534; }
         .status-nonactive { background-color: #fee2e2; color: #991b1b; }
-        .section-header { font-size: 11px; font-weight: bold; color: #1e3a8a; text-transform: uppercase; margin-bottom: 8px; border-bottom: 1px solid #f1f5f9; padding-bottom: 4px; }
-    </style>
+        .section-header { font-size: 10px; font-weight: 800; color: #1e3a8a; text-transform: uppercase; margin-bottom: 8px; border-bottom: 1px solid #f1f5f9; padding-bottom: 4px; tracking: 1px; }
+   
+   
+    /* ... style lainnya ... */
+    .tag-category { background-color: #dbeafe; color: #1e40af; padding: 2px 8px; border-radius: 6px; font-size: 8px; font-weight: 900; text-transform: uppercase; }
+    .tag-pengepul { background-color: #f1f5f9; color: #64748b; padding: 2px 8px; border-radius: 6px; font-size: 8px; font-weight: 700; text-transform: uppercase; }
+    .card-master { border-left: 4px solid #059669; border-radius: 24px; transition: all 0.2s; }
+</style>
+   </style>
 </head>
 <body>
 
@@ -25,78 +30,92 @@
 
     <div id="screen-login" class="p-8 flex flex-col justify-center h-screen">
         <div class="text-center mb-10">
-            <div class="w-20 h-20 bg-admin-green rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <div class="w-20 h-20 bg-admin-green rounded-3xl flex items-center justify-center mx-auto mb-4 shadow-xl">
                 <span class="text-3xl">🔑</span>
             </div>
-            <h1 class="text-2xl font-bold text-gray-800">Back Office Portal</h1>
-            <p class="text-sm text-gray-500">Go Green Danagung System</p>
+            <h1 class="text-2xl font-black text-gray-800 tracking-tight">Back Office Portal</h1>
+            <p class="text-xs text-gray-400 uppercase font-bold tracking-widest mt-1">Go Green Danagung System</p>
         </div>
-        <button onclick="showScreen('screen-launcher')" class="w-full py-4 bg-green-800 text-white rounded-xl font-bold shadow-lg">Login Admin</button>
+        <button onclick="showScreen('screen-launcher')" class="w-full py-4 bg-green-800 text-white rounded-2xl font-black shadow-lg uppercase text-xs tracking-widest active:scale-95 transition-transform">Login Admin</button>
     </div>
 
     <div id="screen-launcher" class="hidden">
-        <div class="p-6 bg-admin-green text-white pb-12 rounded-b-[30px]">
+        <div class="p-6 bg-admin-green text-white pb-12 rounded-b-[40px] shadow-lg">
             <div class="flex justify-between items-center mb-8">
                 <div>
-                    <p class="text-xs opacity-70">Selamat Bekerja,</p>
+                    <p class="text-[10px] opacity-70 uppercase font-bold tracking-widest">Selamat Bekerja,</p>
                     <h2 class="text-lg font-bold">Admin Operasional</h2>
                 </div>
-                <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">👤</div>
+                <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center border border-white/30">👤</div>
             </div>
-            <p class="text-sm font-medium">Pilih Modul Manajemen :</p>
+            <p class="text-sm font-bold opacity-90">Pilih Modul Manajemen :</p>
         </div>
 
-        <div class="p-6 -mt-8 grid grid-cols-1 gap-4">
-            <div onclick="showScreen('screen-dashboard')" class="btn-menu p-5 rounded-2xl shadow-sm flex items-center cursor-pointer">
-                <div class="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center text-2xl mr-4">📝</div>
+        <div class="p-6 -mt-8 space-y-4">
+            <div onclick="showScreen('screen-dashboard')" class="bg-white p-5 rounded-3xl shadow-lg border border-gray-50 flex items-center cursor-pointer active:scale-95 transition-transform">
+                <div class="w-12 h-12 bg-orange-50 rounded-2xl flex items-center justify-center text-2xl mr-4">📝</div>
                 <div class="flex-1">
-                    <h3 class="font-bold text-gray-800 text-sm">Approval Aktivasi Akun</h3>
-                    <p class="text-[10px] text-gray-400">Verifikasi Nasabah, Pengepul, & Bank Sampah</p>
+                    <h3 class="font-bold text-gray-800 text-sm uppercase">Approval Aktivasi</h3>
+                    <p class="text-[10px] text-gray-400">Verifikasi Nasabah & Unit</p>
                 </div>
-                <span id="badge-count" class="bg-red-500 text-white text-[10px] px-2 py-1 rounded-full">3</span>
+                <span class="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded-full font-black">3</span>
             </div>
 
-            <div onclick="showScreen('screen-master-harga')" class="btn-menu p-5 rounded-2xl shadow-sm flex items-center cursor-pointer">
-                <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-2xl mr-4">💰</div>
+            <div onclick="showScreen('screen-master-harga')" class="bg-white p-5 rounded-3xl shadow-lg border border-gray-50 flex items-center cursor-pointer active:scale-95 transition-transform">
+                <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-2xl mr-4">💰</div>
                 <div class="flex-1">
-                    <h3 class="font-bold text-gray-800 text-sm">Master Harga Limbah</h3>
-                    <p class="text-[10px] text-gray-400">Update harga beli berdasarkan tipe plastik</p>
+                    <h3 class="font-bold text-gray-800 text-sm uppercase">Master Harga Limbah</h3>
+                    <p class="text-[10px] text-gray-400">Update acuan harga beli</p>
                 </div>
                 <span class="text-gray-300">›</span>
             </div>
+
+            <div onclick="showScreen('screen-verify-payment')" class="bg-white p-5 rounded-3xl shadow-lg border border-gray-50 flex items-center cursor-pointer active:scale-95 transition-transform">
+                <div class="w-12 h-12 bg-green-50 rounded-2xl flex items-center justify-center text-2xl mr-4">💸</div>
+                <div class="flex-1">
+                    <h3 class="font-bold text-gray-800 text-sm uppercase">Verifikasi Bayar Pengepul</h3>
+                    <p class="text-[10px] text-gray-400">Validasi transfer antar-bank</p>
+                </div>
+                <span class="bg-orange-500 text-white text-[10px] px-2 py-0.5 rounded-full font-black">1</span>
+            </div>
+
+            <div class="bg-orange-50 p-4 rounded-[28px] border border-orange-100 flex gap-3">
+                <div class="w-6 h-6 bg-orange-500 text-white rounded-full flex items-center justify-center text-xs font-bold shrink-0">!</div>
+                <p class="text-[9px] text-orange-800 leading-tight italic">
+                    <span class="font-black uppercase block mb-0.5">Informasi Stok:</span>
+                    Persetujuan (Approve) pembayaran akan otomatis memotong data stok pada <b>Stock Management Bank Sampah</b>.
+                </p>
+            </div>
         </div>
-        <button onclick="showScreen('screen-login')" class="absolute bottom-10 left-0 right-0 text-center text-xs text-red-500 font-bold underline">Logout dari System</button>
+        <button onclick="showScreen('screen-login')" class="w-full text-center text-[10px] text-red-500 font-black uppercase tracking-widest mt-4 underline">Logout dari System</button>
     </div>
 
     <div id="screen-dashboard" class="hidden">
         <div class="p-4 flex items-center border-b sticky top-0 bg-white z-20">
-            <button onclick="showScreen('screen-launcher')" class="text-2xl mr-4">←</button>
-            <h1 class="font-bold text-gray-800 text-sm">Antrian Aktivasi</h1>
+            <button onclick="showScreen('screen-launcher')" class="text-2xl mr-4 text-green-800">←</button>
+            <h1 class="font-bold text-gray-800 text-sm uppercase">Antrian Aktivasi</h1>
         </div>
-        <div class="flex border-b text-center text-[10px] font-bold text-gray-400 bg-gray-50">
+        <div class="flex border-b text-center text-[9px] font-black text-gray-400 bg-gray-50">
             <button onclick="switchTab('nasabah')" id="tab-nasabah" class="flex-1 py-4 border-b-2 border-green-700 text-green-700">NASABAH</button>
             <button onclick="switchTab('pengepul')" id="tab-pengepul" class="flex-1 py-4 border-b-2 border-transparent">PENGEPUL</button>
             <button onclick="switchTab('banksampah')" id="tab-banksampah" class="flex-1 py-4 border-b-2 border-transparent">BANK SAMPAH</button>
         </div>
-        <div id="list-items" class="p-4 space-y-3">
-            </div>
+        <div id="list-items" class="p-4 space-y-3"></div>
     </div>
 
     <div id="screen-detail" class="hidden pb-24">
         <div class="p-4 flex items-center border-b bg-white sticky top-0 z-20">
-            <button onclick="showScreen('screen-dashboard')" class="text-2xl mr-4">←</button>
-            <h1 class="font-bold text-gray-800">Detail Verifikasi</h1>
+            <button onclick="showScreen('screen-dashboard')" class="text-2xl mr-4 text-green-800">←</button>
+            <h1 class="font-bold text-gray-800 text-sm uppercase">Detail Verifikasi</h1>
         </div>
         <div class="p-5 space-y-6">
-            <div class="flex justify-between items-center bg-gray-50 p-3 rounded-lg border">
-                <span class="text-[10px] font-bold text-gray-500 uppercase">Status:</span>
+            <div class="flex justify-between items-center bg-gray-50 p-4 rounded-2xl border">
+                <span class="text-[10px] font-black text-gray-400 uppercase">Status Saat Ini:</span>
                 <span id="detail-status-badge" class="status-badge">WAITING</span>
             </div>
-            <div id="detail-content" class="space-y-6">
-                </div>
+            <div id="detail-content" class="space-y-6 text-left"></div>
         </div>
-        <div id="action-bar" class="fixed bottom-0 left-0 right-0 max-w-[480px] mx-auto p-4 bg-white border-t flex gap-2">
-            </div>
+        <div id="action-bar" class="fixed bottom-0 left-0 right-0 max-w-[480px] mx-auto p-4 bg-white border-t flex gap-2 shadow-2xl"></div>
     </div>
 
     <div id="screen-master-harga" class="hidden">
@@ -104,147 +123,139 @@
             <button onclick="showScreen('screen-launcher')" class="text-2xl mr-4 text-green-800">←</button>
             <h1 class="font-bold text-gray-800 text-sm uppercase">Master Harga Limbah</h1>
         </div>
-        
-        <div class="p-4 space-y-4 pb-24">
-            <div class="bg-gray-50 p-3 rounded-xl border border-gray-200">
-                <label class="text-[9px] font-black text-gray-400 uppercase mb-1 block">Filter Berdasarkan Pengepul</label>
+        <div class="p-4 space-y-4 pb-24 text-left">
+            <div class="bg-gray-50 p-4 rounded-2xl border border-gray-200">
+                <label class="text-[9px] font-black text-gray-400 uppercase mb-2 block">Filter Pengepul</label>
                 <select id="filter-master-pengepul" onchange="renderMasterHarga()" class="w-full bg-transparent text-xs font-bold outline-none">
                     <option value="ALL">SEMUA PENGEPUL</option>
                     <option value="PT Pengepul Jaya Utama">PT Pengepul Jaya Utama</option>
                     <option value="Lapak Berkah Recycle">Lapak Berkah Recycle</option>
                 </select>
             </div>
-
-            <div id="master-harga-list" class="space-y-3">
-                </div>
+            <div id="master-harga-list" class="space-y-3"></div>
         </div>
-
-        <button onclick="openHargaForm()" class="fixed bottom-6 right-6 w-14 h-14 bg-green-800 text-white rounded-full shadow-2xl flex items-center justify-center text-2xl z-30 active:scale-90 transition-transform">
-            +
-        </button>
+        <button onclick="openCreateHarga()" class="fixed bottom-6 right-6 w-14 h-14 bg-green-800 text-white rounded-full shadow-2xl flex items-center justify-center text-3xl font-light active:scale-90 transition-transform">+</button>
     </div>
 
-    <div id="screen-master-harga-form" class="hidden pb-20">
+    <div id="screen-harga-create" class="hidden">
         <div class="p-4 flex items-center border-b sticky top-0 bg-white z-20">
             <button onclick="showScreen('screen-master-harga')" class="text-2xl mr-4 text-green-800">←</button>
-            <h1 id="form-harga-title" class="font-bold text-gray-800 text-sm uppercase">Tambah Parameter Harga</h1>
+            <h1 class="font-bold text-gray-800 text-sm uppercase">Tambah Master Harga</h1>
         </div>
-
-        <div class="p-6 space-y-5">
-            <input type="hidden" id="form-harga-id">
-            
+        <div class="p-6 space-y-5 text-left">
             <div>
-                <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Nama Barang / Tipe Sampah</label>
-                <input type="text" id="input-nama-barang" placeholder="Contoh: Plastik PET Bening" class="w-full p-3 border rounded-xl text-sm outline-none focus:border-green-600">
+                <label class="text-[10px] font-black text-gray-400 uppercase mb-2 block">1. Pilih Pengepul</label>
+                <select id="create-harga-pengepul" class="w-full p-4 bg-gray-50 border rounded-2xl text-xs font-bold outline-none"></select>
             </div>
-
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Kategori</label>
-                    <select id="input-kategori" class="w-full p-3 border rounded-xl text-sm outline-none bg-white">
-                        <option value="PLASTIK">PLASTIK</option>
-                        <option value="KERTAS">KERTAS</option>
-                        <option value="LOGAM">LOGAM</option>
-                        <option value="KACA">KACA</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Harga per Kg (Rp)</label>
-                    <input type="number" id="input-harga" placeholder="3500" class="w-full p-3 border rounded-xl text-sm outline-none focus:border-green-600">
-                </div>
-            </div>
-
             <div>
-                <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Pengepul Rekanan</label>
-                <select id="input-pengepul" class="w-full p-3 border rounded-xl text-sm outline-none bg-white">
-                    <option value="PT Pengepul Jaya Utama">PT Pengepul Jaya Utama</option>
-                    <option value="Lapak Berkah Recycle">Lapak Berkah Recycle</option>
+                <label class="text-[10px] font-black text-gray-400 uppercase mb-2 block">2. Kategori</label>
+                <select id="create-harga-kategori" class="w-full p-4 bg-gray-50 border rounded-2xl text-xs font-bold outline-none">
+                    <option value="PLASTIK">PLASTIK</option><option value="KERTAS">KERTAS</option><option value="LOGAM">LOGAM</option>
                 </select>
-                <p class="text-[9px] text-blue-500 mt-2 italic font-medium">*Harga ini akan muncul sebagai acuan saat Bank Sampah menjual ke pengepul ini.</p>
             </div>
-
-            <div class="pt-6">
-                <button onclick="saveMasterHarga()" class="w-full py-4 bg-green-800 text-white rounded-2xl font-bold shadow-lg uppercase text-xs tracking-widest">Simpan Parameter Harga</button>
-                <button id="btn-delete-harga" onclick="deleteHarga()" class="hidden w-full py-4 mt-3 text-red-600 font-bold text-xs uppercase tracking-widest">Hapus Data</button>
+            <div>
+                <label class="text-[10px] font-black text-gray-400 uppercase mb-2 block">3. Nama Barang</label>
+                <input type="text" id="create-harga-nama" placeholder="Contoh: Plastik PET" class="w-full p-4 bg-gray-50 border rounded-2xl text-xs outline-none">
             </div>
+            <div>
+    <label class="text-[10px] font-black text-gray-400 uppercase mb-2 block tracking-widest">4. Harga per Kilogram (Rp)</label>
+    <div class="relative">
+        <span class="absolute left-4 top-4 text-xs font-black text-green-700">Rp</span>
+        <input type="number" id="create-harga-nilai" placeholder="3500" 
+               class="w-full p-4 pl-12 bg-gray-50 border border-gray-100 rounded-[20px] text-lg font-black text-green-700 outline-none focus:border-green-600 shadow-inner">
+    </div>
+</div>
+            <button onclick="saveNewPrice()" class="w-full py-4 bg-green-800 text-white rounded-2xl font-black uppercase text-xs shadow-lg mt-4">Simpan Harga</button>
         </div>
     </div>
 
-<div id="screen-harga-create" class="hidden">
-    <div class="p-4 flex items-center border-b sticky top-0 bg-white z-20">
-        <button onclick="showScreen('screen-master-harga')" class="text-2xl mr-4 text-green-800">←</button>
-        <h1 class="font-bold text-gray-800 text-sm uppercase">Tambah Master Harga</h1>
+    <div id="screen-verify-payment" class="hidden">
+        <div class="p-4 flex items-center border-b sticky top-0 bg-white z-20">
+            <button onclick="showScreen('screen-launcher')" class="text-2xl mr-4 text-green-800">←</button>
+            <h1 class="font-bold text-gray-800 text-sm uppercase">Antrian Verifikasi Bayar</h1>
+        </div>
+        <div id="verify-payment-list" class="p-4 space-y-3"></div>
     </div>
 
-    <div class="p-6 space-y-6">
-        <div class="bg-blue-50 p-4 rounded-2xl border border-blue-100">
-            <p class="text-[10px] text-blue-700 leading-tight italic">
-                Pilih pengepul tujuan terlebih dahulu untuk menentukan acuan harga beli bagi Bank Sampah.
+    <div id="screen-verify-detail" class="hidden pb-40">
+        <div class="p-4 flex items-center border-b bg-white sticky top-0 z-20">
+            <button onclick="showScreen('screen-verify-payment')" class="text-2xl mr-4 text-green-800">←</button>
+            <h1 class="font-bold text-gray-800 text-sm uppercase">Validasi Bukti Transfer</h1>
+        </div>
+       <div class="p-5 space-y-6 text-left">
+    <div class="bg-gray-50 p-6 rounded-[32px] border border-gray-100 space-y-5 shadow-inner">
+        
+        <div>
+            <p class="text-[9px] text-gray-400 font-bold uppercase tracking-widest mb-1">Pengirim (Pengepul)</p>
+            <p id="v-pengepul" class="text-sm font-black text-blue-900 uppercase">--</p>
+            <p class="text-[10px] font-bold text-gray-600 mt-0.5">
+                <span id="v-bank-pengirim">--</span> • <span id="v-rek-pengirim" class="tracking-tighter">--</span>
             </p>
         </div>
 
-        <div>
-            <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-2 ml-1">1. Pilih Pengepul Rekanan</label>
-            <select id="create-harga-pengepul" class="w-full p-4 bg-gray-50 border rounded-2xl text-xs font-bold outline-none focus:border-green-600 appearance-none bg-[url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%239ca3af%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] bg-[length:1.2em] bg-[right_1rem_center] bg-no-repeat">
-                <option value="">-- Pilih Pengepul --</option>
-                </select>
-        </div>
+        <div class="border-t border-dashed border-gray-300"></div>
 
         <div>
-            <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-2 ml-1">2. Kategori Limbah</label>
-            <select id="create-harga-kategori" class="w-full p-4 bg-gray-50 border rounded-2xl text-xs font-bold outline-none focus:border-green-600">
-                <option value="PLASTIK">PLASTIK (PET/HDPE)</option>
-                <option value="KERTAS">KERTAS / KARTON</option>
-                <option value="LOGAM">LOGAM / BESI</option>
-                <option value="KACA">KACA / BOTOL</option>
-            </select>
+            <p class="text-[9px] text-gray-400 font-bold uppercase tracking-widest mb-1">Penerima (Bank Sampah)</p>
+            <p id="v-banksampah" class="text-sm font-black text-gray-800 uppercase">--</p>
+            <p class="text-[10px] font-bold text-gray-600 mt-0.5">
+                <span id="v-bank-penerima">--</span> • <span id="v-rek-penerima" class="tracking-tighter">--</span>
+            </p>
         </div>
 
-        <div>
-            <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-2 ml-1">3. Nama Barang / Tipe Spesifik</label>
-            <input type="text" id="create-harga-nama" placeholder="Contoh: Plastik PET Bening" class="w-full p-4 bg-gray-50 border rounded-2xl text-xs outline-none focus:border-green-600">
-        </div>
+        <div class="border-t border-dashed border-gray-300"></div>
 
-        <div>
-            <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-2 ml-1">4. Harga per Kilogram (Rp)</label>
-            <div class="relative">
-                <span class="absolute left-4 top-4 text-xs font-bold text-gray-400">Rp</span>
-                <input type="number" id="create-harga-nilai" placeholder="0" class="w-full p-4 pl-10 bg-gray-50 border rounded-2xl text-xs font-black text-green-700 outline-none focus:border-green-600">
+        <div class="flex justify-between items-end">
+            <div>
+                <p class="text-[9px] text-gray-400 font-bold uppercase tracking-widest mb-1">Nominal Transfer</p>
+                <p id="v-amount" class="text-xl font-black text-green-700 italic">--</p>
+            </div>
+            <div class="text-right">
+                <p class="text-[9px] text-gray-400 font-bold uppercase tracking-widest mb-1">Ref ID</p>
+                <p id="v-ref" class="text-[10px] font-bold text-gray-500 italic">--</p>
             </div>
         </div>
+    </div>
 
-        <div class="pt-4">
-            <button onclick="saveNewPrice()" class="w-full py-4 bg-green-800 text-white rounded-2xl font-bold shadow-lg uppercase text-xs tracking-widest active:scale-95 transition-transform">
-                Simpan ke Master Harga
-            </button>
+    <div>
+        <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3 ml-2">Lampiran Bukti Bayar</p>
+        <div class="h-64 bg-gray-100 rounded-[40px] border-2 border-dashed border-gray-200 flex flex-col items-center justify-center relative overflow-hidden">
+            <span class="text-4xl mb-2">📸</span>
+            <div class="absolute inset-0 bg-green-900/5 flex items-center justify-center">
+                <p class="text-[14px] font-black text-green-800/10 rotate-12 uppercase tracking-[8px]">Attachment Verified</p>
+            </div>
         </div>
     </div>
 </div>
+        <div class="fixed bottom-0 left-0 right-0 max-w-[480px] mx-auto p-4 bg-white border-t flex gap-3">
+            <button onclick="showScreen('screen-verify-payment')" class="flex-1 py-4 bg-red-50 text-red-700 rounded-2xl font-bold text-xs uppercase">Kembali</button>
+            <button onclick="approvePayment()" class="flex-[2] py-4 bg-green-800 text-white rounded-2xl font-bold text-xs uppercase shadow-lg">Approve & Update CBS</button>
+        </div>
+    </div>
 
 </div>
 
 <script>
-    // Database Simulasi
     const database = {
-        nasabah: [
-            { id: 101, name: "Budi Setiawan", cif: "CIF-00012345", hp: "08123456789", email: "budi@email.com", rek: "1020888882", status: "WAITING" }
+        nasabah: [{ id: 101, name: "Budi Setiawan", cif: "CIF-00012345", hp: "08123456789", email: "budi@email.com", rek: "1020888882", status: "WAITING" }],
+        pengepul: [{ id: 201, name: "PT Pengepul Jaya", cif: "CIF-00099988", hp: "0855667788", alamat: "Jl. Industri No. 12", tipe: "Badan Usaha", pic: "Andi Saputra", status: "WAITING" }],
+        banksampah: [{ id: 301, name: "Bank Sampah Melati", cif: "CIF-00077722", hp: "0811000999", wilayah: "Tangerang", pic_ops: "Rina Sari", status: "WAITING" }],
+        master_harga: [
+            { id: 1, nama: "Plastik PET", kategori: "PLASTIK", harga: 3500, pengepul: "PT Pengepul Jaya Utama" },
+            { id: 2, nama: "Kaleng Alumunium", kategori: "LOGAM", harga: 9500, pengepul: "Lapak Berkah Recycle" }
         ],
-        pengepul: [
-            { id: 201, name: "PT Pengepul Jaya", cif: "CIF-00099988", hp: "0855667788", alamat: "Jl. Industri No. 12", tipe: "Badan Usaha", pic: "Andi Saputra", status: "WAITING" }
-        ],
-        banksampah: [
-            { id: 301, name: "Bank Sampah Melati", cif: "CIF-00077722", hp: "0811000999", wilayah: "Tangerang", pic_ops: "Rina Sari", pic_keu: "Agus H.", koordinat: "-6.2, 106.8", status: "WAITING" }
-        ]
+        pending_payments: [{ id: 1, pengepul: "PT Pengepul Jaya", banksampah: "Bank Sampah Melati", amount: 352500, ref: "GG-REF-77621", status: "WAITING" }]
     };
 
     let currentTab = 'nasabah';
 
     function showScreen(id) {
-        ['screen-login', 'screen-launcher', 'screen-dashboard', 'screen-detail', 'screen-master-harga'].forEach(s => {
-            document.getElementById(s).classList.add('hidden');
-        });
+        const screens = ['screen-login', 'screen-launcher', 'screen-dashboard', 'screen-detail', 'screen-master-harga', 'screen-harga-create', 'screen-verify-payment', 'screen-verify-detail'];
+        screens.forEach(s => document.getElementById(s).classList.add('hidden'));
         document.getElementById(id).classList.remove('hidden');
         if(id === 'screen-dashboard') renderList();
+        if(id === 'screen-master-harga') renderMasterHarga();
+        if(id === 'screen-verify-payment') renderVerifyList();
     }
 
     function switchTab(tab) {
@@ -261,11 +272,9 @@
         container.innerHTML = '';
         database[currentTab].forEach(item => {
             const badgeClass = item.status === 'WAITING' ? 'status-waiting' : (item.status === 'ACTIVE' ? 'status-active' : 'status-nonactive');
-            container.innerHTML += `
-                <div onclick="showDetail('${currentTab}', ${item.id})" class="p-4 border rounded-xl flex justify-between items-center bg-white shadow-sm hover:border-green-300 cursor-pointer">
-                    <div><p class="text-xs font-bold text-gray-800">${item.name}</p><p class="text-[10px] text-gray-400">${item.cif}</p></div>
-                    <div class="flex items-center"><span class="status-badge ${badgeClass}">${item.status}</span><span class="ml-2 text-gray-300">›</span></div>
-                </div>`;
+            container.innerHTML += `<div onclick="showDetail('${currentTab}', ${item.id})" class="p-4 border rounded-2xl flex justify-between items-center bg-white shadow-sm cursor-pointer">
+                <div><p class="text-xs font-black text-gray-800">${item.name}</p><p class="text-[9px] text-gray-400">${item.cif}</p></div>
+                <span class="status-badge ${badgeClass}">${item.status}</span></div>`;
         });
     }
 
@@ -274,200 +283,109 @@
         const content = document.getElementById('detail-content');
         const badge = document.getElementById('detail-status-badge');
         const actionBar = document.getElementById('action-bar');
-        
         badge.innerText = data.status;
         badge.className = 'status-badge ' + (data.status === 'WAITING' ? 'status-waiting' : (data.status === 'ACTIVE' ? 'status-active' : 'status-nonactive'));
-
-        let html = '';
-        if (type === 'nasabah') {
-            html = `<section><div class="section-header">🛡️ Identitas (Prefill)</div><p class="text-[10px] text-gray-400 font-bold uppercase">Nama / CIF</p><p class="text-sm font-medium mb-2">${data.name} / ${data.cif}</p><p class="text-[10px] text-gray-400 font-bold uppercase">Kontak</p><p class="text-sm font-medium">${data.hp} / ${data.email}</p></section>
-                    <section><div class="section-header">💳 Rekening Reward</div><p class="text-sm font-medium">${data.rek} (Tabungan) - ACTIVE</p></section>`;
-        } else if (type === 'pengepul') {
-            html = `<section><div class="section-header">🚚 Profil Pengepul</div><p class="text-[10px] text-gray-400 font-bold uppercase">Nama Usaha / Tipe</p><p class="text-sm font-medium mb-2">${data.name} (${data.tipe})</p><p class="text-[10px] text-gray-400 font-bold uppercase">Alamat</p><p class="text-sm font-medium">${data.alamat}</p></section>
-                    <section><div class="section-header">👤 PIC & CIF</div><p class="text-sm font-medium">${data.pic} / ${data.cif}</p></section>`;
-        } else {
-            html = `<section><div class="section-header">🏦 Profil Bank Sampah</div><p class="text-[10px] text-gray-400 font-bold uppercase">Nama Unit / Wilayah</p><p class="text-sm font-medium mb-2">${data.name} / ${data.wilayah}</p><p class="text-[10px] text-gray-400 font-bold uppercase">Koordinat</p><p class="text-sm font-medium">${data.koordinat}</p></section>
-                    <section><div class="section-header">👥 PIC</div><p class="text-sm font-medium">Ops: ${data.pic_ops} / Keu: ${data.pic_keu}</p></section>`;
-        }
-        content.innerHTML = html;
-
+        content.innerHTML = `<section><div class="section-header">🛡️ Profil Identitas</div><p class="text-[9px] text-gray-400 font-bold uppercase">Nama / CIF</p><p class="text-sm font-black text-blue-900 mb-3">${data.name} / ${data.cif}</p></section>`;
+        
         if (data.status === 'WAITING') {
-            actionBar.innerHTML = `<button onclick="updateStatus('${type}', ${id}, 'REJECT')" class="flex-1 py-4 bg-red-50 text-red-700 rounded-xl font-bold text-xs">Reject</button>
-                                   <button onclick="updateStatus('${type}', ${id}, 'ACTIVE')" class="flex-[2] py-4 bg-green-800 text-white rounded-xl font-bold shadow-lg text-xs uppercase">Approve & Aktifkan</button>`;
-        } else if (data.status === 'ACTIVE') {
-            actionBar.innerHTML = `<button onclick="updateStatus('${type}', ${id}, 'NON-ACTIVE')" class="w-full py-4 bg-red-600 text-white rounded-xl font-bold shadow-lg text-xs uppercase">Non-Aktifkan Akun</button>`;
+            actionBar.innerHTML = `<button onclick="updateStatus('${type}', ${id}, 'REJECT')" class="flex-1 py-4 bg-red-50 text-red-700 rounded-2xl font-black text-[10px] uppercase">Reject</button>
+            <button onclick="updateStatus('${type}', ${id}, 'ACTIVE')" class="flex-[2] py-4 bg-green-800 text-white rounded-2xl font-black shadow-lg text-[10px] uppercase">Approve & Aktifkan</button>`;
         } else {
-            actionBar.innerHTML = `<button onclick="updateStatus('${type}', ${id}, 'ACTIVE')" class="w-full py-4 bg-green-800 text-white rounded-xl font-bold text-xs uppercase">Aktifkan Kembali</button>`;
+            actionBar.innerHTML = `<button onclick="showScreen('screen-dashboard')" class="w-full py-4 bg-gray-100 text-gray-500 rounded-2xl font-black text-[10px] uppercase">Tutup</button>`;
         }
-
         showScreen('screen-detail');
     }
 
     function updateStatus(type, id, newStatus) {
         if(confirm(`Update status menjadi ${newStatus}?`)) {
-            const item = database[type].find(i => i.id === id);
-            item.status = newStatus;
-            alert(`Berhasil! Status ${item.name} diperbarui.`);
-            showScreen('screen-dashboard');
+            database[type].find(i => i.id === id).status = newStatus;
+            alert("Berhasil diperbarui!"); showScreen('screen-dashboard');
         }
     }
+function renderMasterHarga() {
+    const container = document.getElementById('master-harga-list');
+    const filter = document.getElementById('filter-master-pengepul').value;
+    container.innerHTML = '';
 
-    // Tambahkan ke Database Simulasi
-    database.master_harga = [
-        { id: 1, nama: "Plastik PET", kategori: "PLASTIK", harga: 3500, pengepul: "PT Pengepul Jaya Utama" },
-        { id: 2, nama: "Kardus Bekas", kategori: "KERTAS", harga: 2200, pengepul: "PT Pengepul Jaya Utama" },
-        { id: 3, nama: "Kaleng Alumunium", kategori: "LOGAM", harga: 9500, pengepul: "Lapak Berkah Recycle" }
-    ];
+    const filteredData = filter === 'ALL' 
+        ? database.master_harga 
+        : database.master_harga.filter(h => h.pengepul === filter);
 
-    // Update showScreen untuk mendaftarkan layar baru
-    function showScreen(id) {
-        ['screen-login', 'screen-launcher', 'screen-dashboard', 'screen-detail', 'screen-master-harga', 'screen-master-harga-form'].forEach(s => {
-            const el = document.getElementById(s);
-            if(el) el.classList.add('hidden');
-        });
-        document.getElementById(id).classList.remove('hidden');
-        
-        if(id === 'screen-dashboard') renderList();
-        if(id === 'screen-master-harga') renderMasterHarga();
-    }
-
-    // Render List Master Harga
-    function renderMasterHarga() {
-        const container = document.getElementById('master-harga-list');
-        const filter = document.getElementById('filter-master-pengepul').value;
-        container.innerHTML = '';
-
-        const filteredData = filter === 'ALL' 
-            ? database.master_harga 
-            : database.master_harga.filter(h => h.pengepul === filter);
-
-        filteredData.forEach(item => {
-            container.innerHTML += `
-                <div class="p-4 border rounded-2xl bg-white shadow-sm flex justify-between items-center border-l-4 border-l-green-700">
-                    <div class="flex-1">
-                        <div class="flex items-center gap-2 mb-1">
-                            <span class="text-[8px] bg-blue-100 text-blue-700 font-black px-1.5 py-0.5 rounded uppercase">${item.kategori}</span>
-                            <span class="text-[8px] bg-gray-100 text-gray-500 font-bold px-1.5 py-0.5 rounded uppercase">${item.pengepul}</span>
-                        </div>
-                        <p class="text-xs font-black text-gray-800 uppercase">${item.nama}</p>
-                        <p class="text-sm font-black text-green-700 mt-1">Rp ${item.harga.toLocaleString('id-ID')} <span class="text-[9px] text-gray-400 font-normal">/kg</span></p>
+    filteredData.forEach(item => {
+        container.innerHTML += `
+            <div class="card-master p-5 border border-gray-100 bg-white shadow-sm flex justify-between items-center">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="tag-category">${item.kategori}</span>
+                        <span class="tag-pengepul">${item.pengepul}</span>
                     </div>
-                    <button onclick="openHargaForm(${item.id})" class="p-2 text-blue-600 bg-blue-50 rounded-lg text-[10px] font-bold uppercase">Edit</button>
+                    
+                    <h3 class="font-black text-gray-800 text-sm uppercase tracking-tight">${item.nama}</h3>
+                    
+                    <div class="flex items-baseline gap-1 mt-1">
+                        <span class="text-green-600 font-black text-lg">Rp ${item.harga.toLocaleString('id-ID')}</span>
+                        <span class="text-[10px] text-gray-400 font-bold">/kg</span>
+                    </div>
                 </div>
-            `;
-        });
-    }
-
-    // Buka Form (Tambah/Edit)
-    function openHargaForm(id = null) {
-        const isEdit = id !== null;
-        document.getElementById('form-harga-title').innerText = isEdit ? 'Edit Parameter Harga' : 'Tambah Parameter Harga';
-        document.getElementById('btn-delete-harga').classList.toggle('hidden', !isEdit);
-        
-        if (isEdit) {
-            const item = database.master_harga.find(h => h.id === id);
-            document.getElementById('form-harga-id').value = item.id;
-            document.getElementById('input-nama-barang').value = item.nama;
-            document.getElementById('input-kategori').value = item.kategori;
-            document.getElementById('input-harga').value = item.harga;
-            document.getElementById('input-pengepul').value = item.pengepul;
-        } else {
-            document.getElementById('form-harga-id').value = '';
-            document.getElementById('input-nama-barang').value = '';
-            document.getElementById('input-harga').value = '';
-        }
-        
-        showScreen('screen-master-harga-form');
-    }
-
-    // Simpan Data
-    function saveMasterHarga() {
-        const id = document.getElementById('form-harga-id').value;
-        const data = {
-            id: id ? parseInt(id) : Date.now(),
-            nama: document.getElementById('input-nama-barang').value,
-            kategori: document.getElementById('input-kategori').value,
-            harga: parseInt(document.getElementById('input-harga').value),
-            pengepul: document.getElementById('input-pengepul').value
-        };
-
-        if(!data.nama || !data.harga) return alert("Harap lengkapi Nama Barang dan Harga!");
-
-        if(id) {
-            const index = database.master_harga.findIndex(h => h.id === parseInt(id));
-            database.master_harga[index] = data;
-        } else {
-            database.master_harga.push(data);
-        }
-
-        alert("Data Master Harga Berhasil Disimpan.");
-        showScreen('screen-master-harga');
-    }
-
-    function deleteHarga() {
-        if(confirm("Hapus parameter harga ini?")) {
-            const id = parseInt(document.getElementById('form-harga-id').value);
-            database.master_harga = database.master_harga.filter(h => h.id !== id);
-            showScreen('screen-master-harga');
-        }
-    }
-
-    // Fungsi untuk membuka form create dan mengisi daftar pengepul secara dinamis
-function openCreateHarga() {
-    const selectPengepul = document.getElementById('create-harga-pengepul');
-    
-    // Reset dan Isi opsi pengepul dari database
-    selectPengepul.innerHTML = '<option value="">-- Pilih Pengepul --</option>';
-    database.pengepul.forEach(p => {
-        selectPengepul.innerHTML += `<option value="${p.name}">${p.name}</option>`;
+                
+                <button onclick="openHargaForm(${item.id})" class="bg-blue-50 text-blue-600 px-4 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-blue-100 transition-colors">
+                    Edit
+                </button>
+            </div>
+        `;
     });
-
-    // Reset input lainnya
-    document.getElementById('create-harga-nama').value = '';
-    document.getElementById('create-harga-nilai').value = '';
-    
-    showScreen('screen-harga-create');
 }
 
-// Fungsi Simpan Data Baru
-function saveNewPrice() {
-    const pengepul = document.getElementById('create-harga-pengepul').value;
-    const kategori = document.getElementById('create-harga-kategori').value;
-    const nama = document.getElementById('create-harga-nama').value;
-    const harga = document.getElementById('create-harga-nilai').value;
-
-    // Validasi Sederhana
-    if(!pengepul || !nama || !harga) {
-        return alert("Harap lengkapi semua field!");
+    function openCreateHarga() {
+        const selectPengepul = document.getElementById('create-harga-pengepul');
+        selectPengepul.innerHTML = database.pengepul.map(p => `<option value="${p.name}">${p.name}</option>`).join('');
+        showScreen('screen-harga-create');
     }
 
-    // Tambah ke Database Simulasi
-    const newData = {
-        id: Date.now(),
-        nama: nama,
-        kategori: kategori,
-        harga: parseInt(harga),
-        pengepul: pengepul
-    };
+    function saveNewPrice() {
+        const nama = document.getElementById('create-harga-nama').value;
+        const harga = document.getElementById('create-harga-nilai').value;
+        if(!nama || !harga) return alert("Lengkapi data!");
+        database.master_harga.push({ id: Date.now(), nama, kategori: document.getElementById('create-harga-kategori').value, harga: parseInt(harga), pengepul: document.getElementById('create-harga-pengepul').value });
+        alert("Harga Baru Disimpan!"); showScreen('screen-master-harga');
+    }
 
-    database.master_harga.push(newData); //
-    alert(`Berhasil menambahkan harga ${nama} untuk ${pengepul}`);
+    function renderVerifyList() {
+        const container = document.getElementById('verify-payment-list');
+        container.innerHTML = database.pending_payments.map(item => `
+            <div onclick="showVerifyDetail(${item.id})" class="p-4 border rounded-2xl bg-white shadow-sm flex justify-between items-center border-l-4 border-l-orange-400 active:scale-95 transition-transform cursor-pointer text-left">
+                <div><p class="text-[9px] font-black text-blue-900 uppercase italic">Antar Bank (Verify)</p>
+                <p class="text-xs font-bold text-gray-800 mt-1">${item.pengepul} ➔ ${item.banksampah}</p>
+                <p class="text-[11px] font-black text-green-700 mt-1">Rp ${item.amount.toLocaleString('id-ID')}</p></div>
+                <span class="text-gray-300">›</span></div>`).join('');
+    }
+
+    function showVerifyDetail(id) {
+    const data = database.pending_payments.find(p => p.id === id);
     
-    showScreen('screen-master-harga');
+    // Mapping Data Pengepul
+    document.getElementById('v-pengepul').innerText = data.pengepul;
+    document.getElementById('v-bank-pengirim').innerText = data.bank_pengirim;
+    document.getElementById('v-rek-pengirim').innerText = data.rek_pengirim;
+
+    // Mapping Data Bank Sampah
+    document.getElementById('v-banksampah').innerText = data.banksampah;
+    document.getElementById('v-bank-penerima').innerText = data.bank_penerima;
+    document.getElementById('v-rek-penerima').innerText = data.rek_penerima;
+
+    // Mapping Nominal & Ref
+    document.getElementById('v-amount').innerText = "Rp " + data.amount.toLocaleString('id-ID');
+    document.getElementById('v-ref').innerText = data.ref;
+
+    showScreen('screen-verify-detail');
 }
 
-// Update showScreen agar mengenali screen baru
-function showScreen(id) {
-    const screens = ['screen-login', 'screen-launcher', 'screen-dashboard', 'screen-detail', 'screen-master-harga', 'screen-harga-create'];
-    screens.forEach(s => {
-        const el = document.getElementById(s);
-        if(el) el.classList.add('hidden');
-    });
-    
-    document.getElementById(id).classList.remove('hidden');
-    if(id === 'screen-master-harga') renderMasterHarga(); // Refresh list saat kembali
-}
+    function approvePayment() {
+        if(confirm("Konfirmasi Verifikasi? Saldo Bank Sampah akan bertambah & Stok terpotong otomatis.")) {
+            alert("VERIFIKASI BERHASIL!\nRef CBS: CBS-" + Math.random().toString(36).substr(2,6).toUpperCase() + "\n\nSaldo CBS diperbarui & Stock Management Sinkron.");
+            database.pending_payments = []; showScreen('screen-launcher');
+        }
+    }
 </script>
-
 </body>
 </html>
